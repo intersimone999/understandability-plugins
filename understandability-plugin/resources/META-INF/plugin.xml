@@ -1,0 +1,36 @@
+<idea-plugin version="2">
+  <id>it.unimol.understandability</id>
+  <name>Understandability</name>
+  <version>1.0</version>
+  <vendor email="simone.scalabrino@unimol.it" url="http://dibt.unimol.it">University of Molise</vendor>
+
+  <description><![CDATA[
+      This plugin just computes the understandability of a method.
+    ]]></description>
+
+  <change-notes><![CDATA[
+    ]]>
+  </change-notes>
+
+  <!-- please see http://www.jetbrains.org/intellij/sdk/docs/basics/getting_started/build_number_ranges.html for description -->
+  <idea-version since-build="133.0"/>
+
+  <!-- please see http://www.jetbrains.org/intellij/sdk/docs/basics/getting_started/plugin_compatibility.html
+       on how to target different products -->
+  <!-- uncomment to enable plugin in all products
+  <depends>com.intellij.modules.lang</depends>
+  -->
+
+  <extensions defaultExtensionNs="com.intellij">
+    <!-- Add your extensions here -->
+  </extensions>
+
+  <actions>
+    <!-- Add your actions here -->
+    <action id="Understandability.Calculate" class="it.unimol.understandability.ui.CalculateUnderstandabilityAction"
+            text="Calculate understandability" description="Prints the understandability index for the selected class">
+      <add-to-group group-id="ProjectViewPopupMenu" anchor="first"/>
+    </action>
+  </actions>
+
+</idea-plugin>
