@@ -10,6 +10,9 @@ import com.intellij.openapi.vfs.VirtualFile;
 import com.intellij.psi.PsiFileSystemItem;
 import org.jetbrains.annotations.NotNull;
 
+import java.util.ArrayList;
+import java.util.List;
+
 /**
  * Created by simone on 16/12/16.
  */
@@ -27,6 +30,10 @@ public abstract class MyTask extends Task.Backgroundable {
 
     public void setNext(MyTask next) {
         this.next = next;
+    }
+
+    public List<MyTask> getDependencyTasks() {
+        return new ArrayList<>();
     }
 
     @Override

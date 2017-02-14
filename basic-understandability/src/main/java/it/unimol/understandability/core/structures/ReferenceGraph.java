@@ -7,6 +7,7 @@ import org.jgrapht.graph.DefaultEdge;
 import org.jgrapht.graph.SimpleDirectedGraph;
 import org.jgrapht.graph.SimpleGraph;
 
+import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 import java.util.Set;
@@ -16,6 +17,7 @@ import java.util.Set;
  */
 public class ReferenceGraph extends SimpleDirectedGraph<PsiElement, DefaultEdge> {
     private Map<PsiElement, Double> ranks;
+    private Map<PsiElement, Double> normalizedRanks;
 
     public ReferenceGraph(EdgeFactory<PsiElement, DefaultEdge> ef) {
         super(ef);
@@ -31,6 +33,24 @@ public class ReferenceGraph extends SimpleDirectedGraph<PsiElement, DefaultEdge>
         }
 
         return ranks;
+    }
+
+    public Map<PsiElement, Double> getNormalizedPageRank() {
+        if (this.normalizedRanks == null) {
+            this.normalizedRanks = new HashMap<>();
+
+            double max = 0.0;
+            for (Double value : this.getPageRank().values()) {
+                if (value > max)
+                    max = value;
+            }
+
+            for (Map.Entry<PsiElement, Double> entry : this.getPageRank().entrySet()) {
+                this.normalizedRanks.put(entry.getKey(), entry.getValue() / max);
+            }
+        }
+
+        return this.normalizedRanks;
     }
 
     public ReferenceGraph getSubgraph(List<PsiElement> allowedElements) {

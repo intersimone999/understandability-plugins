@@ -22,14 +22,18 @@
   -->
 
   <extensions defaultExtensionNs="com.intellij">
-    <!-- Add your extensions here -->
+    <applicationConfigurable instance="it.unimol.understandability.ui.panels.config.SettingsDialog" />
   </extensions>
 
   <actions>
-    <!-- Add your actions here -->
     <action id="Understandability.Calculate" class="it.unimol.understandability.ui.CalculateUnderstandabilityAction"
-            text="Calculate understandability" description="Prints the understandability index for the selected class">
-      <add-to-group group-id="ProjectViewPopupMenu" anchor="first"/>
+            text="Calculate understandability" description="Writes a CSV file with the understandability of each method of each class of the selected project">
+      <add-to-group group-id="ProjectViewPopupMenu" anchor="first" />
+    </action>
+
+    <action id="Understandability.SelectSnippets" class="it.unimol.understandability.ui.SelectSnippetsAction"
+            text="Export SQL with snippets" description="Export an SQL file which saves the snippets and the related classes in the database">
+      <add-to-group group-id="ProjectViewPopupMenu" anchor="first" />
     </action>
   </actions>
 

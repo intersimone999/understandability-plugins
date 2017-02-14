@@ -16,6 +16,8 @@ public class TaskChain {
     }
 
     public void appendTask(MyTask task) {
+        for (MyTask dependency : task.getDependencyTasks())
+            this.appendTask(dependency);
         this.chain.add(task);
     }
 

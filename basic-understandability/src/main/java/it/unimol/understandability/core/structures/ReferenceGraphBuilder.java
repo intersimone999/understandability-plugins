@@ -5,7 +5,8 @@ import com.intellij.openapi.project.Project;
 import com.intellij.psi.*;
 import com.intellij.psi.impl.source.PsiMethodImpl;
 import com.intellij.psi.util.PsiTreeUtil;
-import it.unimol.understandability.core.ProjectExplorer;
+import it.unimol.understandability.core.ProjectUtils;
+import it.unimol.understandability.core.PsiUtils;
 import org.jgrapht.graph.DefaultEdge;
 
 import java.util.HashMap;
@@ -32,8 +33,14 @@ public class ReferenceGraphBuilder {
         this.referenceGraphs = new HashMap<>();
     }
 
+    public boolean isReady(Project project) {
+        PsiFileSystemItem root = PsiUtils.virtualFileToPsi(project, project.getBaseDir());
+
+        return this.referenceGraphs.containsKey(root);
+    }
+
     public ReferenceGraph getReferenceGraph(Project project) {
-        PsiFileSystemItem root = PsiManager.getInstance(project).findFile(project.getBaseDir());
+        PsiFileSystemItem root = PsiUtils.virtualFileToPsi(project, project.getBaseDir());
         if (!this.referenceGraphs.containsKey(root)) {
             ReferenceGraph newReferenceGraph = this.buildReferenceGraphFromScratch(root);
 
@@ -42,7 +49,7 @@ public class ReferenceGraphBuilder {
             return newReferenceGraph;
         }
 
-        return this.referenceGraphs.get(project); //this.justUpdateReferenceGraph(project, this.referenceGraphs.get(project));
+        return this.referenceGraphs.get(root); //this.justUpdateReferenceGraph(project, this.referenceGraphs.get(project));
     }
 
     public ReferenceGraph getReferenceGraph(PsiFileSystemItem rootFile) {
@@ -64,7 +71,7 @@ public class ReferenceGraphBuilder {
     }
 
     private ReferenceGraph justUpdateReferenceGraph(PsiFileSystemItem rootFile, ReferenceGraph referenceGraph) {
-        List<PsiClass> allClasses = ProjectExplorer.getInstance().getClassesFromVirtualFile(rootFile.getProject(), rootFile.getVirtualFile());
+        List<PsiClass> allClasses = ProjectUtils.getInstance().getClassesFromVirtualFile(rootFile.getProject(), rootFile.getVirtualFile());
         double classes = allClasses.size();
         double doneClasses = -1D;
 

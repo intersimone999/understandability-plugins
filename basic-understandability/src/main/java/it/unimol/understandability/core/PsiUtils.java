@@ -104,4 +104,22 @@ public class PsiUtils {
     public static void logWarning(Class pClass, Object o) {
         Logger.getInstance(pClass).warn(o.toString());
     }
+
+    public static boolean isSourceElement(PsiClass pClass) {
+        return pClass != null &&
+                pClass.getContainingFile() != null &&
+                pClass.getContainingFile().getVirtualFile() != null &&
+                pClass.getContainingFile().getVirtualFile().getCanonicalPath() != null &&
+                !pClass.getContainingFile().getVirtualFile().getCanonicalPath().endsWith(".class");
+    }
+
+    public static boolean isSourceElement(PsiMethod pMethod) {
+        if (pMethod == null ||
+                pMethod.getContainingFile() == null ||
+                pMethod.getContainingFile().getVirtualFile() == null ||
+                pMethod.getContainingFile().getVirtualFile().getCanonicalPath() == null)
+            return false;
+
+        return !pMethod.getContainingFile().getVirtualFile().getCanonicalPath().endsWith(".class");
+    }
 }
