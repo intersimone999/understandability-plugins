@@ -1,0 +1,1126 @@
+charset,character set
+throwable,throwable
+args,arguments
+appendable,appendable
+len,length
+cbuf,character buffer
+buf,buffer
+raf,random access file
+dst,destination
+concat,concatenation
+url,uniform resource locator
+utf,unicode transformation format
+enum,enumeration
+multimap,multi map
+pv,pv
+ip,internet protocol
+inet,internet
+hextet,hextet
+uri,uniform resource identifier
+hextets,hextets
+compat,compatible
+isatap,intra site automatic tunnel addressing protocol
+dest,destination
+csq,character sequence
+xml,extensible markup language
+bimap,bimap
+nanos,nano seconds
+clazz,class
+spliterator,split iterator
+jla,java log analyser
+params,parameters
+finalizer,finalizer
+unencoded,unencoded
+hmac,hmac
+impl,implementation
+fpp,false positive probability
+endian,endian
+mul,multiplication
+fmix,fmix
+hashers,hashers
+pearsons,pearsons
+nums,numbers
+cas,cas
+uninterruptibly,uninterruptibly
+validator,validator
+nano,nano
+mutex,mutually exclusive
+interruptibly,interruptibly
+resync,re sync
+cmp,compare
+hc,hash code
+ssize,segment size
+evictable,evictable
+multiset,multi set
+unicode,unicode
+deque,deque
+interner,interner
+aggr,aggregation
+succ,successor
+supertype,super type
+overridable,overridable
+classloader,class loader
+cls,clear screen
+unregister,unregister
+trie,trie
+millis,millis
+jta,java transaction api
+loggable,loggable
+lhs,left hand side
+etype,e type
+jira,jira
+lastname,last name
+classpath,class path
+descr,description
+influencers,influencers
+sql,structured query language
+updateability,updateability
+insertability,insertability
+versioned,versioned
+versionability,versionability
+updateable,updateable
+nullness,nullness
+nonlazy,non lazy
+expr,expression
+seperator,separator
+fk,foreign key
+bytecode,bytecode
+metadata,metadata
+_name,name
+rhs,right hand side
+hql,hibernate query language
+sfi,session factory implementor
+unalias,unalias
+subquery,sub query
+metamodel,metamodel
+jdbc,java database connectivity
+integrators,integrators
+metadatasources,metadata sources
+lifecycle,life cycle
+asc,ascendent
+enrolments,enrollments
+deserialize,deserialize
+uuid,universally unique id
+queryable,queryable
+contraint,contraint
+subselect,subselect
+pojo,plain old java object
+tuplizer,tuplizer
+versionable,versionable
+doremove,do remove
+lce,loading collection entry
+ojf,join fragment
+cacheable,cacheable
+dml,data manipulation language
+pw,password
+jaxb,java architecture for extensible markup language  binding
+hbm,hibernate mapping file
+tuplizers,tuplizers
+nullability,nullability
+reffering,referring
+jpaql,jpaql
+defaultable,defaultable
+$$,$$
+_get,get
+_set,set
+jpa,java persistence api
+exportables,exportables
+config,configuration
+fums,???
+qux,???
+_,
+seperators,seperators
+ent,entity
+cfg,configuration
+qb,query block
+nullifiable,nullifiable
+referenceable,referenceable
+classfile,class file
+fd,file descriptor
+embeddedable,embeddedable
+orm,object relational mapping
+resultset,result set
+resultsets,result sets
+subcriteria,subcriteria
+hib,hibernate
+tranchenmodell,tranches model
+preisregelung,price regulation
+tranchen,tranches
+backref,back reference
+sqle,sql exception
+extracter,extractor
+namespace,name space
+nowait,no wait
+delet,delete
+batchable,batchable
+unwrappable,unwrappable
+entid,entity id
+isbn,international standard book number
+uk,united kingdom
+_clear,clear
+ddl,data definition language
+initializor,initializator
+envers,envers
+impls,implementations
+osgi,open services gateway initiative
+firstname,first name
+outerjoin,outer join
+namespaces,name spaces
+jandex,java annotator indexer
+ssr,sequence selection repetition
+locs,lines of code
+namespaced,namespaced
+destructure,destructure
+euk,entity unique key
+clob,character large object
+instantiator,instantiator
+autodiscovertypes,auto discovert types
+overriden,overridden
+infinispan,infinispan
+gc,garbage collector
+deserialized,deserialized
+attr,attribute
+queryables,queryables
+jndi,java naming directory interface
+ctx,context
+xxs,???
+urls,uniform resource locators
+throwables,throwables
+api,application programming interface
+scrollable,scrollable
+retreive,retreive
+subselects,subselects
+uid,unique id
+numerito,number
+synchronizations,synchronizations
+ssn,social security number
+xa,distributed transaction
+ejb,enterprise java bean
+dyna,dynamic
+baz,???
+abroads,abroads
+vwu,??? work unit
+manies,manies
+datas,data
+ormfile,orm file
+specj,spekj
+_has,has
+srid,srs id
+javassist,java assist
+foos,???
+unproxy,unproxy
+selectables,selectables
+tmp,temporary
+syntheic,synthetic
+fq,filter query
+utils,utilities
+fqcn,fully qualified class name
+nonscalar,non scalar
+unmarshal,unmarshal
+untransform,untransform
+vone,later
+pfer,???
+tlf,task list fragment
+dorecreate,do recreate
+doupdate,do update
+cdd,cache data description
+glarch,???
+anns,annotations
+hilo,high low
+rtn,return
+orgid,organization id
+productnumber,product number
+ordernumber,order number
+mbean,??? bean
+subqueries,sub queries
+datasource,data source
+nqd,name query definition
+placeholders,place holders
+startindex,start index
+enums,enumerations
+dto,data transfer object
+coord,coordinates
+bsb,???
+emails,emails
+scrollability,scrollability
+multiselect,multi select
+ois,object input stream
+autocommit,auto commit
+idmap,id map
+username,user name
+nombre,first name
+everyones,everyones
+fqn,???
+zipcode,zip code
+website,web site
+bidirecational,bidirecational
+tok,token
+stax,streaming api extensible markup language
+invalidators,invalidators
+ints,integers
+superclasses,super classes
+embeddables,embeddables
+womens,women
+yetanother,yet another
+oja,outer joinable association
+oldsql,old structured query language
+newsql,new structured query language
+jacc,java authorization contract for containers
+excplicit,axplicit
+serfile,ser file
+manyto,many to
+quizz,quiz
+unindex,unindex
+sfb,session factory implementor
+subelements,sub elements
+sortablez,sortables
+https,https
+acl,access control list
+jenkins,jenkins
+mkdirs,make directories
+symlink,symbolic link
+chmod,change mode
+oldname,old name
+newname,new name
+strerror,string error
+errno,error number
+jnr,java native runtime
+dw,???
+pid,process di
+symlinking,symbolic linking
+sid,security identity
+plugin,plugin
+json,json
+src,source
+plugins,plugins
+jdk,java development kit
+scm,software configuration management
+jd,java dialog
+ks,keys
+logfile,log file
+rsp,response
+classname,class name
+unmigration,unmigration
+taf,transient action factory
+timezone,time zone
+hyperlink,hyperlink
+http,http
+fingerprinter,finger print
+envs,environments
+vars,variables
+itr,iterator
+href,hypertext reference
+buildables,buildables
+wuc,work unit context
+wsl,workspace list
+sudo,superuser do
+exe,executable
+pb,process builder
+geteuid,get effective unique id
+vm,virtual machine
+fullname,full name
+localizible,localizable
+iterables,iterables
+cmds,commands
+stdout,standard output
+pwd,password
+stdin,standard input
+dedup,de duplicate
+errorlevel,error level
+isa,is a
+oid,object identifier
+uro,unicast remote object
+jrmp,java remote method protocol
+stderr,standard error
+tcp,transmission control protocol
+diffie,diffie
+captcha,captcha
+_unsafe,unsafe
+unmigrate,unmigrate
+regex,regular expression
+dirs,directories
+mkfiles,make files
+ctor,constructor
+memoized,memoized
+ih,invocation handler
+iface,interface
+ifaces,interfaces
+changelog,change log
+xpath,extensible markup language path
+zfs,zip file set
+getdtablesize,get d tables size
+fcntl,manipulate file descriptor
+getegid,get group identity
+getpwuid,get password unique id
+chown,change owner
+lsb,least significant bit
+lstb,last stable build
+downgradable,downgradable
+availables,availables
+permalinks,permanent links
+html,hypertext markup language
+jpi,jenkins plugin
+hpi,hudson plugin
+jvm,java virtual machine
+udp,user datagram protocol
+dns,domain name system
+servlet,servlet
+jnlp,java network launch protocol
+rss,rich site summary
+klass,class
+jdks,java development kits
+memoitized,memoitized
+ig,inter group
+readonly,read only
+ul,unordered list
+phk,???
+lpc,list column path
+lpft,???
+refreshable,refreshable
+dependee,dependee
+_key,key
+ekskey,???
+streamtoword,stream to word
+offp,???
+describables,describables
+cron,cron
+permalink,permanent link
+lpcch,???
+lpcb,???
+uninstallable,uninstallable
+_base,base
+maxolen,maximum object length
+_raw,raw
+_rounds,rounds
+cdata,character data
+downstreams,down streams
+hashify,hashify
+descramble,descramble
+ptr,pointer
+wal,write ahead log
+upsert,upsert
+zk,zoo keeper
+znode,z node
+func,function
+phx,phoenix
+optimizable,optimizable
+stmt,statement
+aggregators,aggregators
+traceid,trace id
+scn,sap communication network
+pconn,phoenix connection
+roundtrip,roundtrip
+zookeeper,zoo keeper
+keytab,key table
+salte,salted
+proj,project
+experssions,expressions
+kvs,key values
+apps,applications
+schem,schema
+rmhost,remote host
+rmport,remote port
+timetamp,time stamp
+rowkey,row key
+foreach,for each
+abortable,abortable
+tablename,table name
+asssert,assert
+completebulkload,complete bulk load
+parentid,parent identifier
+spanid,span identifier
+hostname,host name
+udf,universal disk format
+serailize,serialize
+repeation,repeation
+hbase,hbase
+comparision,comparison
+descs,descriptions
+idx,identifier
+arguement,argument
+fpath,file path
+tname,??? name
+ecode,execution code
+qf,??? file
+txn,transaction
+substr,sub string
+upserts,upserts
+primative,primitive
+vals,values
+milli,milli
+appcpu,???
+neccessary,necessary
+htable,htable
+qplan,query plan
+valdator,validator
+rvc,row value constructor
+parititon,partition
+serializer,serializer
+sensitve,sensitive
+indx,index
+outputdir,output directory
+aysnc,asynchronous
+ptsdb,???
+csv,comma separated value
+ptable,ptable
+vlong,??? long
+ioe,input output exception
+hcd,hcolumn descriptor
+kerberos,kerberos
+codition,condition
+postional,positional
+lkv,list key value
+rpc,remote procedure call
+ttl,time to live
+perc,percentage
+lte,lob test entity
+metatable,meta table
+splitkey,split key
+contruct,construct
+rp,result precision
+ddls,data definition language instructions
+prioritymin,priority minimum
+agg,aggregate
+funcs,functions
+getenv,get environment
+_protocol,protocol
+bitset,bitset
+uao,unsafe aligned offset
+hashcode,hash code
+kbase,k base
+klen,k length
+vbase,v base
+voff,v offset
+vlen,v length
+rfind,right find
+udfs,universal disk formats
+py,python
+jsc,java spark context
+lpad,left padding
+rpad,right padding
+kdf,???
+sasl,simple authentication security level
+unref,unreference
+transfered,transferred
+nio,new input output
+backend,backend
+newversion,new version
+soundex,sound exception
+bufs,buffers
+tasklet,tasklet
+autowired,auto wired
+ao,accessible object
+tokenizer,tokenizer
+bme,bean metadata element
+resourcename,resource name
+dbc,database context
+vfs,virtual file system
+println,print line
+sorteable,sorteable
+wp,write pointer
+jsp,java servlet page
+cms,content management service
+ou,organizational unit
+foldername,folder name
+resourcenames,resource names
+uncache,uncache
+ous,organizational units
+subresources,subresources
+groupname,group name
+chacc,???
+css,cascading style sheet
+popup,pop up
+onkeyupevent,on key up event
+stmnt,statement
+webuser,web user
+predef,predefined
+tempfile,temp file
+elementlanguage,element language
+mandantory,mandatory
+elementname,element name
+errorpage,error page
+solr,solr
+oldelementname,old element name
+oldelementlanguage,old element language
+directedit,direct edit
+multipart,multi part
+supressing,suppressing
+framename,frame name
+uris,uniform resource identifiers
+resourcelist,resource list
+dialogtype,dialog type
+paramaters,parameters
+configs,configurations
+elems,elements
+subheadline,subheadline
+orgunit,organizational unit
+userid,user identifier
+groupid,group identifier
+lastlogin,last login
+stylesheet,style sheet
+subtools,subtools
+starttext,start text
+uninverting,uninverting
+fqs,file queries
+xsd,extensible markup language schema definition
+lru,least recently used
+recusive,recursive
+managergroupname,manager group name
+projecttype,project type
+managergroup,manager group
+workflow,workflow
+appen,append
+propeties,properties
+parseable,parseable
+jtidy,j tidy
+sitemap,site map
+cnt,counter
+indexsource,index source
+unescape,unescape
+vfspath,virtual file system path
+taglib,tag library
+taglibs,tag libraries
+orgfilter,organization filter
+parentgroup,parent group
+unschedule,unschedule
+directpublish,direct publish
+projectid,project identifier
+projectname,project name
+progresskey,progress key
+webusers,web users
+groupcontainer,group container
+containerpage,container page
+zindex,z index
+dnd,drag and drop
+searchpattern,search pattern
+mergefolder,merge folder
+optionbar,option bar
+dragdrop,drag drop
+uuidresource,universal unique id resource
+datelastmodified,date last modified
+userlastmodified,user last modified
+datecreated,date created
+usercreated,user created
+datereleased,date released
+dateexpired,date expired
+parseables,parseables
+fieldconfiguration,field configuration
+editaction,edit action
+favicon,favourite icon
+sitename,site name
+lucene,lucene
+chflags,change flags
+opencms,open content management services
+prefetch,pre fetch
+toolbar,tool bar
+jpql,java persistence query language
+excecute,execute
+reinit,re initialize
+tablespaces,table spaces
+postgre,postgre
+checkbox,checkbox
+oufqn,???
+reource,resource list
+resleased,released
+sitepath,site path
+fieldname,field name
+highlighter,highlighter
+sprintf,string print format
+chtype,change type
+substitions,substitutions
+prefs,preferences
+tokenized,tokenized
+versioning,versioning
+fieldset,field set
+concistency,consistency
+dpi,dots per inch
+usetempfileproject,use temporary file project
+stacktrace,stack trace
+filesize,file size
+uncacheable,uncacheable
+checkboxes,checkboxes
+errorstack,error stack
+unsubscribe,unsubscribe
+acttarget,action target
+unselectable,unselectable
+cmis,content management interoperability services
+mimetype,mime type
+textbox,textbox
+dependes,depends
+gwt,google web kit
+restype,result type
+checkin,check in
+exc,exception
+perma,permanent
+undelete,undelete
+detailpage,detail page
+hoverbar,hover bar
+bigicon,big icon
+checkvalue,check value
+colorvalue,color value
+rgb,red green blue
+timerange,time range
+reson,reason
+editall,edit all
+replacepattern,replace pattern
+backlink,back link
+defnition,definition
+lng,language
+draggable,draggable
+atached,attached
+unregistere,unregistered
+javascript,javascript
+rr,remote result
+rmacc,remove access control
+resourcetype,resource type
+defintion,definition
+webserver,web server
+visisbility,visibility
+intitalized,initialized
+visibilty,visibility
+sessionids,session identifiers
+subsite,sub site
+subfolders,sub folders
+checkboxlabel,checkbox label
+resizable,resizable
+atrribute,attribute
+tooltip,tool tip
+unfocus,unfocus
+workflows,workflows
+exportnames,export names
+mce,multiple collection entity
+publishsiblings,publish siblings
+dlg,dialog
+addititional,additional
+smartphone,smart phone
+wml,wireless markup language
+hiptop,hiptop
+midp,mobile information device profile
+maemo,maemo
+archos,archos
+webkit,webkit
+oss,open source software
+symbian,symbian
+garmin,garmin
+nuvifone,nuvifone
+google,google
+contextmenu,context menu
+uptodate,up to date
+deps,dependencies
+modulelist,module list
+uninstall,uninstall
+indep,independent
+toogle,toggle
+setindex,set index
+bto,blue to
+hsv,hue saturation value
+vto,value to
+bri,brightness
+newtimestamp,new time stamp
+rendermode,render mode
+xhtml,extensible hypertext markup language
+pdf,portable document format
+img,image
+homelink,home link
+xmlcontent,extensible markup language content
+helpresource,help resource
+startlevel,start level
+endlevel,end level
+sourcelanguage,source language
+targetlanguage,target language
+clic,click
+autocorrection,auto correction
+appless,appless
+dcoument,document
+startfolder,start folder
+internalsprintf,internal string print format
+runlevel,run level
+shutdowntime,shutdown time
+flaturl,flat url
+xpaths,x paths
+deatil,detail
+_saturation,saturation
+_overlay,overlay
+_white,white
+_brightness,brightness
+_hue,hue
+_red,red
+_max,maximum
+_min,minimum
+_green,green
+_blue,blue
+submenu,submenu
+propvalue,property value
+resourcepath,resource path
+importfile,import file
+pri,priority
+buttonlabel,button label
+showownlocks,show own locks
+includerelated,include related
+navtext,navigate text
+selectbox,select box
+inlucde,include
+attrs,attributes
+explorertype,explorer type
+istream,input stream
+ostream,output stream
+sfield,search field
+jso,javascript object
+preload,preload
+vaadin,vaadin
+ingore,ignore
+dialogmode,dialog mode
+nologin,no login
+stringify,stringify
+bw,buffered writer
+propertyname,property name
+sx,???
+ressource,resource
+entites,entities
+groupuser,group user
+lastmodified,last modified
+xslt,extensible stylesheet language transformations
+macther,matcher
+rangearrows,range arrows
+rdfa,resource description framework in attributes
+_tl,top left
+_tr,top right
+_br,bottom right
+_bl,bottom left
+rerender,rerender
+exportname,export name
+respone,response
+spellcheck,spell check
+necessesary,necessary
+perl,perl
+occurences,occurrences
+gallerypath,gallery path
+webapp,web application
+uuidstructure,universal unique identifier structure
+hightlight,highlight
+fragmenter,fragmenter
+jobid,job identifier
+seo,search engine optimization
+allways,always
+preparefor,prepare for
+tagreplace,tag replace
+isdefault,is default
+setheight,set height
+startpoint,start point
+scrollabel,scroll label
+scrollbar,scroll bar
+scrollbars,scroll bars
+lockstate,lock state
+lauch,launch
+frameset,frame set
+buildframe,build frame
+recieved,received
+precompressed,precompressed
+pj,publish jobs
+punycode,punycode
+exportpoint,export point
+resourceitems,resource items
+sony,sony
+mylo,mylo
+playstation,playstation
+nintendo,nintendo
+xbox,xbox
+passthrough,pass through
+defaultl,defaut
+imagelike,image like
+deobfuscate,de obfuscate
+singel,single
+textarea,text area
+xsl,extensible stylesheet language
+linebreak,line break
+quicklaunch,quick launch
+unpublish,unpublish
+unremove,unremove
+buildsufix,build suffix
+logname,log name
+tablespace,table space
+servelt,servelt
+appinfo,application information
+workplaceresource,workplace resource
+dependend,dependent
+atts,attributes
+optype,option type
+polevl,polynomial evaluation
+evl,evaluation
+df,data frame
+pcl,property change history
+unback,unback
+targ,target
+bayes,bayes
+hoeffding,hoeffding
+repo,repository
+aic,akaike information criterion
+strat,strategy
+probs,probabilities
+slr,streaming logistic regression
+unprune,unprune
+xy,x y
+vectorized,vectorized
+vectorize,vectorize
+svm,support vector machine
+insts,instances
+lineno,line number
+clsname,class name
+stopword,stop word
+dloss,???
+_nearest,nearest
+_k,k
+_bound,bound
+_zero,zero
+_chi,chi
+_upper,upper
+_ele,element
+_query,query
+_dist,distance
+_parent,parent
+kth,k th
+_sets,sets
+_cover,cover
+_scale,scale
+_batch,batch
+_neighbor,neighbor
+_node,node
+halfsort,half sort
+mega,mega
+gui,graphic user interface
+ty,translated times y
+hierachic,hierarchical
+vct,vector
+jtree,j tree
+goe,goes
+hpp,hierarchy property parser
+algo,algorithm
+evt,event
+svmlight,support vector machine light
+startables,startables
+tse,training set event
+tf,thread factory
+newins,new instances
+cnv,converter
+pkgname,package name
+intf,interface
+ci,contact information
+rangelist,range list
+markov,markov
+pkgnames,package names
+classnames,class names
+otherclass,other class
+matlab,matlab
+runnables,runnables
+generatable,generate table
+newick,newick
+koml,koml
+pmml,predictive model markup language
+rndm,random
+dstr,distribution
+wrt,???
+bif,boot information file
+yates,yates
+cochrans,cochrans
+cramers,cramers
+bc,bean configuration
+mse,mean squared error
+loglikelihood,logarithmic likelyhood
+jtable,j table
+clusterer,clusterer
+enmum,enumerator
+hypot,hypothesis
+isnull,is null
+testvalue,test value
+pmiss,probability missing value
+kf,knowledge flow
+hashtable,hash table
+lvl,level
+newregression,new regression
+_instances,instances
+_params,parameters
+rsq,r squared
+stderror,standard error
+xval,x value
+yval,y value
+pturb,perturbed
+xj,x j
+yj,y j
+xindex,x index
+yindex,y index
+cindex,c index
+startidx,start index
+endidx,end index
+instream,in stream
+zos,zip output stream
+lindex,level index
+iu,iu
+maj,major
+entropic,entropic
+downheap,down heap
+enu,enumeration
+clust,cluster
+ksb,???
+xatt,x attribute
+yatt,y attribute
+newbuild,new build
+newnum,new number
+newrandom,new random
+libsvm,library support vector machine
+symm,symmetry
+uncert,uncertainty
+_num,numeric
+_nom,nominal
+_group,group
+irr,irrelevant
+coords,coordinates
+cdiv,complex division
+tred,tridiagonal reduction
+tql,tridiagonal ql
+orthes,???
+hqr,hessenberg real
+totalno,total number
+evals,evaluations
+subpath,sub path
+moveby,move by
+zipit,zip it
+errms,error message
+eig,eigen
+newjitter,new jitter
+_leaf,leaf
+_insert,insert
+_split,split
+_point,point
+_of,of
+erlang,erlang
+wekawrapper,weka wrapper
+fis,file input stream
+_weights,weights
+_estimators,estimators
+_priors,priors
+_re,re
+javadoc,java documentation
+nindex,number index
+iid,???
+iiu,???
+eindex,e index
+_and,and
+maxx,maximum x
+maxy,maximum y
+wtask,waiting task
+_pos,position
+_size,size
+knn,knn
+testset,test set
+ruleset,rule set
+maxn,maximum n
+sepsets,separation sets
+gaussian,gaussian
+missingmode,missing mode
+blendmethod,blend method
+blendfactor,blend factor
+colomns,columns
+sindex,s index
+startable,startable
+maxcount,maximum count
+sourced,sourced
+stopwords,stop words
+pallete,palette
+stepvisual,step visual
+hpps,hierarchy property parser
+stddev,standard device
+gx,graphics
+xprev,x previous
+yprev,y previous
+hrect,h rectangle
+_or,or
+_n,n
+alabel,a label
+wordwrap,word wrap
+metabeans,meta beans
+deu,???
+mdl,mdl
+dfl,dfl
+rtarget,r target
+rsource,r source
+baos,byte array output stream
+instring,in string
+matthews,matthews
+tcurve,t curve
+prc,prc
+menuitem,menu item
+wexp,waiting experiment
+spam,spam
+uids,unique identifiers
+msgs,messages
+unsuppress,unsuppress
+inbox,inbox
+fulltext,full text
+pgp,pretty good privacy
+ringtone,ringtone
+unserialize,unserialize
+fba,form based authentication
+ungzipped,un g zipped
+globals,globals
+parceable,parcelable
+bcc,blind carbon copy
+xpp,extensible markup language pull parser
+uuids,universal unique identifiers
+gzip,g zip
+drawables,drawables
+insertables,insertables
+dataspace,data space
+imap,internet message access protocol
+tls,transport security layer
+ssl,secure sockey layer
+xoauth,x open authorization
+saslir,simple authentication security layer initial response
+xo,x offset
+addrs,addresses
+appendbq,append block quotes
+appendsp,append spaces
+appendchar,append characters
+htmlify,hypertext markup language
+linkify,link
+jis,???
+iphone,iphone
+viewables,viewables
+hrefs,hypertext references
+crossfade,cross fade
+encodingfor,encoding for
+upgraders,upgraders
+unsynced,unsynchronized
+todo,to do
+nlanguage,n language
+ntheme,n theme
+autofit,auto fit
+smtp,simple mail transfert protocol
+unmarshall,unmarshall
+qif,graphics interchange format
+_id,identifier
+samsung,samsung
+datetime,data time
+setm,set m
+descripton,description
+appdir,application directory
+webdav,web distributed authoring versioning
+acccount,account
+kd,kernel density
+hh,hour
+esacape,escape
+rtl,right to left
+yearless,year less
+dav,distributed authoring versioning
+cn,coordinate
+posititon,position
+syncable,synchronizable
+offet,offset
+www,world wide web
+auths,authors
+propfind,property find
+grisbi,grisbi
+rrule,r rule
+dropbox,dropbox
+refuelings,refuelings
+subcolumn,sub column
+tooltips,tool tips
