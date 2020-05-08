@@ -16,7 +16,7 @@ import java.util.regex.Pattern;
  * Created by simone on 08/12/16.
  */
 public class InternalDocumentationQualityCalculator extends MultiElementMetricCalculator {
-    public static final String NAME = "DocumentationQuality";
+    public static final String NAME = "InternalDocumentation";
 
     public InternalDocumentationQualityCalculator(Mode mode) {
         super(NAME, mode);

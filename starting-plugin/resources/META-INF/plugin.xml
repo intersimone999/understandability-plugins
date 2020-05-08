@@ -1,0 +1,51 @@
+<idea-plugin version="2">
+  <id>it.unimol.understandability.starting</id>
+  <name>Starting explorer</name>
+  <version>0.1</version>
+  <vendor email="simone.scalabrino@unimol.it" url="http://dibt.unimol.it">University of Molise</vendor>
+
+  <description><![CDATA[
+      This plugin indicates the best classes from which it is preferable to start reading code.
+    ]]></description>
+
+  <change-notes><![CDATA[
+    ]]>
+  </change-notes>
+
+  <!-- please see http://www.jetbrains.org/intellij/sdk/docs/basics/getting_started/build_number_ranges.html for description -->
+  <idea-version since-build="133.0"/>
+
+  <!-- please see http://www.jetbrains.org/intellij/sdk/docs/basics/getting_started/plugin_compatibility.html
+       on how to target different products -->
+  <!-- uncomment to enable plugin in all products
+  <depends>com.intellij.modules.lang</depends>
+  -->
+
+  <extensions defaultExtensionNs="com.intellij">
+    <!-- Add your extensions here -->
+  </extensions>
+
+  <actions>
+    <!-- Add your actions here -->
+    <action id="Understandability.OpenCentralClasses" class="it.unimol.understandability.ui.OpenCentralClassesAction"
+            text="Open central classes" description="Opens the 10 most central classes in the package.">
+      <add-to-group group-id="ProjectViewPopupMenu" anchor="first"/>
+    </action>
+
+    <action id="Understandability.Compute" class="it.unimol.understandability.ui.ComputeUnderstandabilityAction"
+            text="Compute Understandability" description="Computes understandabiltiy of each method in a class.">
+      <add-to-group group-id="ProjectViewPopupMenu" anchor="first"/>
+    </action>
+
+    <action id="Understandability.OpenStartingClasses" class="it.unimol.understandability.ui.OpenStartingClassesAction"
+            text="Open starting classes" description="Opens the 10 most suitable starting classes in a package.">
+      <add-to-group group-id="ProjectViewPopupMenu" anchor="first"/>
+    </action>
+
+    <action id="Understandability.RunStudy" class="it.unimol.understandability.ui.RunStudyAction"
+            text="Run study" description="Creates a CSV file for the case study">
+      <add-to-group group-id="ProjectViewPopupMenu" anchor="first"/>
+    </action>
+  </actions>
+
+</idea-plugin>

@@ -14,6 +14,9 @@ public class UnderstandabilityPreferences {
     private static final String STACKOVERFLOW_CACHE_PROPERTY = "stackoverflow.cache";
     private static final String READABILITY_PROPERTY = "readability.classifier";
 
+    private static final String SNIPPET_ID_PROPERTY = "counters.snippet";
+    private static final String CLASS_ID_PROPERTY = "counters.class";
+
     private static PropertiesComponent properties = PropertiesComponent.getInstance();
 
     public static void savePreference(String key, String value) {
@@ -122,5 +125,38 @@ public class UnderstandabilityPreferences {
 
     public static boolean isChangedReadabilityClassifierFile(String value) {
         return isChanged(READABILITY_PROPERTY, value);
+    }
+
+    public static int getSnippetId() {
+        try {
+            return Integer.parseInt(loadPreference(SNIPPET_ID_PROPERTY));
+        } catch (NumberFormatException e) {
+            return 0;
+        }
+    }
+
+    public static boolean isChangedSnippetId(String value) {
+        return isChanged(SNIPPET_ID_PROPERTY, value);
+    }
+
+    public static void setSnippetId(int value) {
+        savePreference(SNIPPET_ID_PROPERTY, String.valueOf(value));
+    }
+
+
+    public static int getClassId() {
+        try {
+            return Integer.parseInt(loadPreference(CLASS_ID_PROPERTY));
+        } catch (NumberFormatException e) {
+            return 0;
+        }
+    }
+
+    public static boolean isChangedClassId(String value) {
+        return isChanged(CLASS_ID_PROPERTY, value);
+    }
+
+    public static void setClassId(int value) {
+        savePreference(CLASS_ID_PROPERTY, String.valueOf(value));
     }
 }

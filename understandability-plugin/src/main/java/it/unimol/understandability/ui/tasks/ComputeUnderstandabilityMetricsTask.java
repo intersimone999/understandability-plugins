@@ -9,10 +9,12 @@ import com.intellij.psi.PsiMethod;
 import it.unimol.readability.metric.API.UnifiedMetricClassifier;
 import it.unimol.understandability.core.ProjectUtils;
 import it.unimol.understandability.core.PsiUtils;
+import it.unimol.understandability.core.metrics.MetricCalculator;
 import it.unimol.understandability.core.metrics.MetricCalculatorSet;
 import it.unimol.understandability.core.metrics.MultiElementMetricCalculator;
 import it.unimol.understandability.core.metrics.parts.*;
 import it.unimol.understandability.core.preferences.UnderstandabilityPreferences;
+import it.unimol.understandability.utils.CKMetrics;
 import it.unimol.understandability.utils.SignatureMatcher;
 import org.apache.commons.lang.StringUtils;
 import org.jetbrains.annotations.NotNull;
@@ -74,57 +76,91 @@ public class ComputeUnderstandabilityMetricsTask extends MyTask {
 
             List<PsiClass> allClasses = ProjectUtils.getInstance().getClassesFromVirtualFile(this.project, this.root);
 
-            MetricCalculatorSet calculators = MetricCalculatorSet.getInstance(MultiElementMetricCalculator.Mode.MEAN);
-            calculators.initialize(this.project);
-            calculators.setIntOption(MetricCalculatorSet.Option.MAX_DEPTH, 3);
+            MetricCalculatorSet calculatorsMean = MetricCalculatorSet.getInstance(MultiElementMetricCalculator.Mode.MEAN);
+            calculatorsMean.initialize(this.project);
+            calculatorsMean.setIntOption(MetricCalculatorSet.Option.MAX_DEPTH, 3);
 
-            FileWriter writer = new FileWriter(ProjectUtils.getInstance().getProjectFile(project, "METRICS.csv"));
+            MetricCalculatorSet calculatorsMax = MetricCalculatorSet.getInstance(MultiElementMetricCalculator.Mode.MAX);
+            calculatorsMax.initialize(this.project);
+            calculatorsMax.setIntOption(MetricCalculatorSet.Option.MAX_DEPTH, 3);
+
+            MetricCalculatorSet calculatorsMin = MetricCalculatorSet.getInstance(MultiElementMetricCalculator.Mode.MIN);
+            calculatorsMin.initialize(this.project);
+            calculatorsMin.setIntOption(MetricCalculatorSet.Option.MAX_DEPTH, 3);
+
+            MetricCalculatorSet calculatorsAbs = MetricCalculatorSet.getInstance(MultiElementMetricCalculator.Mode.ABSOLUTE);
+            calculatorsAbs.initialize(this.project);
+            calculatorsAbs.setIntOption(MetricCalculatorSet.Option.MAX_DEPTH, 3);
+
+            FileWriter writer = new FileWriter(ProjectUtils.getInstance().getProjectFile(project, "METRICS_ALL_ASE.csv"));
             PrintWriter printWriter = new PrintWriter(writer);
 
             List<String> csvFields = new ArrayList<>();
             csvFields.add("method");
             csvFields.add("loc");
-            csvFields.addAll(MetricCalculatorSet.getMetricNames());
-            csvFields.add("readability");
+            csvFields.add("complexity");
+            for (MetricCalculator metricCalculator : calculatorsMin.getMetricCalculators()) {
+                csvFields.add(metricCalculator.getName());
+            }
+
+            for (MetricCalculator metricCalculator : calculatorsMean.getMetricCalculators()) {
+                csvFields.add(metricCalculator.getName());
+            }
+
+            for (MetricCalculator metricCalculator : calculatorsMax.getMetricCalculators()) {
+                csvFields.add(metricCalculator.getName());
+            }
+
+            for (MetricCalculator metricCalculator : calculatorsAbs.getMetricCalculators()) {
+                csvFields.add(metricCalculator.getName());
+            }
 
             printWriter.println(StringUtils.join(csvFields, ";"));
             double done = 0;
 
-            UnifiedMetricClassifier readabilityClassifier = UnifiedMetricClassifier.loadClassifier(new File(UnderstandabilityPreferences.getReadabilityClassifierFile()));
             List<PsiMethod> toEvaluate = new ArrayList<>();
             for (PsiClass psiClass : allClasses) {
-                for (PsiMethod method : psiClass.getMethods()) {
-                    toEvaluate.add(method);
+                done++;
+                progressIndicator.setFraction(done / allClasses.size());
+                if (isEnabledClass(psiClass)) {
+                    for (PsiMethod method : psiClass.getAllMethods()) {
+                        if (this.isEnabled(method))
+                            toEvaluate.add(method);
+                    }
                 }
             }
+
             Collections.shuffle(toEvaluate);
             for (PsiMethod method : toEvaluate) {
-                done++;
-                progressIndicator.setFraction(done / toEvaluate.size());
-
-                if (method.getBody() == null || !this.isEnabled(method))
-                    continue;
 
                 System.out.println(PsiUtils.getSignature(method));
-                Map<String, Double> metrics = calculators.calculateMetrics(method);
-                System.out.println(PsiUtils.getSignature(method) + " => " + metrics);
+                Map<String, Double> allMetrics = new HashMap<>();
+                Map<String, Double> metricsMin = calculatorsMin.calculateMetrics(method);
+                Map<String, Double> metricsMean = calculatorsMean.calculateMetrics(method);
+                Map<String, Double> metricsMax = calculatorsMax.calculateMetrics(method);
+                Map<String, Double> metricsAbs = calculatorsAbs.calculateMetrics(method);
 
-                double readability;
-                try {
-                    readability = readabilityClassifier.classify(method.getText());
-                } catch (Exception e) {
-                    readability = Double.NaN;
-                } catch (Throwable e) {
-                    continue;
-                }
+                allMetrics.putAll(metricsMin);
+                allMetrics.putAll(metricsMean);
+                allMetrics.putAll(metricsMax);
+                allMetrics.putAll(metricsAbs);
+
+                System.out.println(PsiUtils.getSignature(method) + " => " + metricsMean);
 
                 List<String> csvRow = new ArrayList<>();
                 csvRow.add(PsiUtils.getSignature(method));
-                csvRow.add(String.valueOf(method.getText().split("\n").length));
-                for (String metricName : MetricCalculatorSet.getMetricNames()) {
-                    csvRow.add(String.valueOf(metrics.get(metricName)));
+                csvRow.add(String.valueOf(CKMetrics.getLOC(method)));
+                csvRow.add(String.valueOf(CKMetrics.getCyclomaticComplexity(method)));
+//                csvRow.add(String.valueOf(readability));
+
+                int toJump = 3;
+                for (String metricName : csvFields) {
+                    if (toJump > 0) {
+                        --toJump;
+                        continue;
+                    }
+                    csvRow.add(String.valueOf(allMetrics.get(metricName)));
                 }
-                csvRow.add(String.valueOf(readability));
 
                 printWriter.println(StringUtils.join(csvRow, ";"));
             }
@@ -139,20 +175,41 @@ public class ComputeUnderstandabilityMetricsTask extends MyTask {
         }
     }
 
-    private boolean isEnabled(PsiMethod psiMethod) {
-        String methodSignature = PsiUtils.getSignature(psiMethod);
-
-        if (this.enabledSignatures != null) {
-            for (String enabledSignature : this.enabledSignatures) {
-                if (SignatureMatcher.weakMatches(enabledSignature, methodSignature))
-                    return true;
-            }
-        }
-
-        int loc = psiMethod.getBody().getText().split("\n").length;
-        if (loc < minLoc || loc > maxLoc)
+    private boolean isEnabledClass(PsiClass psiClass) {
+        if (psiClass == null || psiClass.getQualifiedName() == null)
             return false;
 
-        return true;
+        String className = psiClass.getQualifiedName();
+        if (this.enabledSignatures != null) {
+            for (String enabledSignature : this.enabledSignatures) {
+                if (enabledSignature.startsWith(className))
+                    return true;
+            }
+
+            return false;
+        } else {
+            return true;
+        }
+    }
+
+    private boolean isEnabled(PsiMethod psiMethod) {
+        if (this.enabledSignatures != null) {
+            String methodSignature = PsiUtils.getSignature(psiMethod);
+            for (String enabledSignature : this.enabledSignatures) {
+//                if (SignatureMatcher.weakMatches(enabledSignature, methodSignature))
+                if (enabledSignature.equals(methodSignature))
+                    return true;
+            }
+            return false;
+        } else {
+            if (psiMethod.getBody() == null)
+                return false;
+
+            int loc = psiMethod.getBody().getText().split("\n").length;
+            if (loc < minLoc || loc > maxLoc)
+                return false;
+
+            return true;
+        }
     }
 }

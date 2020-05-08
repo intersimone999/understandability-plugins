@@ -14,7 +14,8 @@ public abstract class MultiElementMetricCalculator extends MetricCalculator {
     public enum Mode {
         MEAN,
         MAX,
-        MIN
+        MIN,
+        ABSOLUTE
     }
 
     private String name;
@@ -24,10 +25,21 @@ public abstract class MultiElementMetricCalculator extends MetricCalculator {
         super(name);
         this.name = name;
         this.mode = mode;
+
+        if (mode == Mode.ABSOLUTE)
+            throw new RuntimeException("Not allowed to use a MultiElementMetricCalculator in ABSOLUTE mode");
     }
 
     public String getName() {
-        return name;
+        switch (mode) {
+            case MEAN:
+                return "Mean" + name;
+            case MIN:
+                return "Min" + name;
+            case MAX:
+                return "Max" + name;
+        }
+        throw new RuntimeException("IMPOSSIBLE!");
     }
 
     public double compute(PsiMethod method) {

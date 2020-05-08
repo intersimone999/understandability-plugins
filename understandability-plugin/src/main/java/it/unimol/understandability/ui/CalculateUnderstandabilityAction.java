@@ -2,6 +2,7 @@ package it.unimol.understandability.ui;
 
 import com.intellij.openapi.actionSystem.AnAction;
 import com.intellij.openapi.actionSystem.AnActionEvent;
+import it.unimol.understandability.core.ProjectUtils;
 import it.unimol.understandability.ui.tasks.*;
 import org.apache.commons.io.FileUtils;
 
@@ -28,10 +29,14 @@ public class CalculateUnderstandabilityAction extends AnAction {
             computeUnderstandabilityTask = new ComputeUnderstandabilityMetricsTask(anActionEvent.getProject(), 30, 70);
         } else if (CRITERION == Criterion.LIST) {
             try {
-                String[] enabledContents = FileUtils.readFileToString(new File("candidates"), "UTF-8").split("\n");
-                computeUnderstandabilityTask = new ComputeUnderstandabilityMetricsTask(anActionEvent.getProject(), enabledContents);
+                String[] enabledContents = FileUtils.readFileToString(ProjectUtils.getInstance().getProjectFile(anActionEvent.getProject(), "candidates"), "UTF-8").split("\n");
+                String[] enabledSignatures = new String[enabledContents.length];
+                for (int i = 0; i < enabledContents.length; i++) {
+                    enabledSignatures[i] = enabledContents[i].split(";")[0];
+                }
+                computeUnderstandabilityTask = new ComputeUnderstandabilityMetricsTask(anActionEvent.getProject(), enabledSignatures);
             } catch (IOException e) {
-                throw new RuntimeException("Candidate file not found");
+                throw new RuntimeException("Candidate file not found." + e.getMessage());
             }
         } else
             throw new RuntimeException("Invalid criterion");

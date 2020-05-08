@@ -1124,3 +1124,49 @@ dropbox,dropbox
 refuelings,refuelings
 subcolumn,sub column
 tooltips,tool tips
+batchlet,batchlet
+paser,paser
+unmarshaller,unmarshaller
+pvs,property values
+retryable,retryable
+sprocedure,s procedure
+rethrown,re thrown
+autoregister,auto register
+jsr,java specification requests
+tokenizers,tokenizers
+aggergator,aggregator
+lexer,lexer
+rulerefs,rules references
+ttype,token type
+omo,output model object
+atn,augmented transition network
+gencode,generate code
+preds,???
+trg,target
+antlr,antlr
+cstr,character string
+dfa,deterministic finite automaton
+recog,recognizer
+altsets,alternative subsets
+ambig,ambiguous
+nalts,number of alternatives
+sll,???
+localctx,local context
+parentctx,parent context
+sempred,sempred
+precpred,???
+decls,declarations
+mkdir,make dir
+dfs,???
+tojson,to json
+tl,tool listener
+workdir,work directory
+subdir,sub directory
+png,portable network graphics
+stric,stric
+objc,objc
+depset,depset
+bzl,bzl
+starlark,starlark
+aapt,aapt
+proguard,proguard

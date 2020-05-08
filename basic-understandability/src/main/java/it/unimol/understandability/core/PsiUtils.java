@@ -17,49 +17,53 @@ public class PsiUtils {
         String calledMethodName = methodCallExpression.getMethodExpression().getLastChild().getText();
         PsiType[] arguments = methodCallExpression.getArgumentList().getExpressionTypes();
 
-        String result;
+        StringBuilder result;
 
         if (qualifierExpression != null) {
             if (qualifierExpression.getType() != null)
-                result = qualifierExpression.getType().getCanonicalText();
+                result = new StringBuilder(qualifierExpression.getType().getCanonicalText());
             else
-                result = qualifierExpression.getText();
+                result = new StringBuilder(qualifierExpression.getText());
         } else
-            result = thisClass.getQualifiedName();
+            result = new StringBuilder(thisClass.getQualifiedName());
 
-        result += "." + calledMethodName;
-        result += "(";
+        result.append(".").append(calledMethodName);
+        result.append("(");
         int i = 0;
         for (PsiType type : arguments) {
             if (type != null)
-                result += type.getCanonicalText();
+                result.append(type.getCanonicalText());
             else
-                result += "?";
+                result.append("?");
             if (i != arguments.length-1)
-                result += ",";
+                result.append(",");
             i++;
         }
-        result += ")";
+        result.append(")");
 
-        return result;
+        return result.toString();
     }
 
     public static String getSignature(PsiMethod pMethod) {
         PsiClass theClass = pMethod.getContainingClass();
-        String result = theClass.getQualifiedName();
-        result += "." + pMethod.getName();
-        result += "(";
+        if (theClass == null || theClass.getQualifiedName() == null) {
+            throw new RuntimeException("Unable to get class name for " + pMethod.toString());
+        }
+
+        StringBuilder result = new StringBuilder(theClass.getQualifiedName());
+        result.append(".").append(pMethod.getName());
+        result.append("(");
 
         PsiParameter[] parameters = pMethod.getParameterList().getParameters();
         for (int i = 0; i < parameters.length; i++) {
-            result += parameters[i].getType().getCanonicalText();
+            result.append(parameters[i].getType().getCanonicalText());
 
             if (i != parameters.length-1)
-                result += ",";
+                result.append(",");
         }
-        result += ")";
+        result.append(")");
 
-        return result;
+        return result.toString();
     }
 
     public static String toString(PsiElement element) {

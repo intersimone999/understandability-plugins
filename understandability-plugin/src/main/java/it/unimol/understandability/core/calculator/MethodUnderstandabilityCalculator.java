@@ -7,6 +7,7 @@ import it.unimol.understandability.core.PsiUtils;
 import it.unimol.understandability.core.metrics.MetricCalculatorSet;
 import it.unimol.understandability.core.metrics.MultiElementMetricCalculator.Mode;
 import it.unimol.understandability.core.preferences.UnderstandabilityPreferences;
+import it.unimol.understandability.utils.ReadabilityProxy;
 
 import java.io.File;
 import java.util.HashMap;
@@ -16,8 +17,6 @@ import java.util.Map;
  * Created by simone on 01/02/17.
  */
 public class MethodUnderstandabilityCalculator implements UnderstandabilityCalculator {
-    private static UnifiedMetricClassifier readabilityClassifier;
-
     private static Map<String, Double> cachedValues;
 
     static {
@@ -41,11 +40,8 @@ public class MethodUnderstandabilityCalculator implements UnderstandabilityCalcu
 
         componentUnderstandabilityCalculator.setMaxDepth(this.maxDepthLevel);
 
-        if (readabilityClassifier == null) {
-            readabilityClassifier = UnifiedMetricClassifier.loadClassifier(new File(UnderstandabilityPreferences.getReadabilityClassifierFile()));
-        }
         try {
-            double readability = readabilityClassifier.classify(method.getText());
+            double readability = ReadabilityProxy.getReadability(method);
             double componentsUnderstandability = componentUnderstandabilityCalculator.computeUnderstandability(method);
 
             double value = readability * componentsUnderstandability;

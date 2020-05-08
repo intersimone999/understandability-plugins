@@ -15,7 +15,7 @@ import java.util.Map;
  * Created by simone on 30/01/17.
  */
 public class APIExternalPopularityCalculator extends MultiElementMetricCalculator {
-    public static final String NAME = "APIExternalPopularity";
+    public static final String NAME = "ExternalPopularity";
     private static Map<String, Double> cachedPopularities;
     private static double cachedMaxPopularity;
 
@@ -58,7 +58,7 @@ public class APIExternalPopularityCalculator extends MultiElementMetricCalculato
             throw new IgnoreValueException();
 
         if (targetClass.getQualifiedName().matches("java\\.lang\\.[A-Za-z0-9_]+"))
-            return 1.0;
+            throw new IgnoreValueException();//return 1.0;
 
         if (this.popularities.containsKey(targetClass.getQualifiedName()))
             return this.popularities.get(targetClass.getQualifiedName()) / this.maxPopularity;
@@ -68,5 +68,14 @@ public class APIExternalPopularityCalculator extends MultiElementMetricCalculato
 
     public double computeForEach(PsiMethod method) throws IgnoreValueException {
         throw new IgnoreValueException();
+    }
+
+    @Override
+    public double compute(PsiMethod method) {
+        Double result = super.compute(method);
+        if (result.isNaN())
+            return 0.0;
+        else
+            return result;
     }
 }

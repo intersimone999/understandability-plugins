@@ -2,18 +2,23 @@ package it.unimol.understandability.ui.tasks;
 
 import com.intellij.openapi.application.AccessToken;
 import com.intellij.openapi.application.ApplicationManager;
+import com.intellij.openapi.diagnostic.Logger;
 import com.intellij.openapi.progress.ProgressIndicator;
 import com.intellij.openapi.project.Project;
 import com.intellij.psi.*;
+import com.intellij.psi.util.PsiUtil;
 import it.unimol.understandability.core.ProjectUtils;
 import it.unimol.understandability.core.PsiUtils;
 import it.unimol.understandability.core.calculator.MethodUnderstandabilityCalculator;
+import it.unimol.understandability.core.preferences.UnderstandabilityPreferences;
 import org.apache.commons.io.FileUtils;
 import org.apache.commons.lang.StringUtils;
 import org.jetbrains.annotations.NotNull;
 
 import java.io.File;
+import java.io.FileWriter;
 import java.io.IOException;
+import java.io.PrintWriter;
 import java.util.*;
 
 /**
@@ -23,10 +28,10 @@ import java.util.*;
  */
 public class SelectSnippetsTask extends MyTask {
     private static int classId;
-    private static Map<PsiClass, Integer> classToId;
+    private static Map<String, Integer> classToId;
 
     private static int methodId;
-    private static Map<PsiMethod, Integer> methodToId;
+    private static Map<String, Integer> methodToId;
 
     static {
         classToId = new HashMap<>();
@@ -37,19 +42,31 @@ public class SelectSnippetsTask extends MyTask {
     }
 
     private static int getClassUniqueId(PsiClass psiClass) {
-        if (!classToId.containsKey(psiClass))
-            classToId.put(psiClass, classId++);
-        return classToId.get(psiClass);
+        String signature = psiClass.getQualifiedName();
+
+        if (!classToId.containsKey(signature))
+            classToId.put(signature, classId++);
+        return classToId.get(signature);
     }
 
     private static int getMethodUniqueId(PsiMethod psiMethod) {
-        if (!methodToId.containsKey(psiMethod))
-            methodToId.put(psiMethod, methodId++);
-        return methodToId.get(psiMethod);
+        String signature = PsiUtils.getSignature(psiMethod);
+        if (!methodToId.containsKey(signature))
+            methodToId.put(signature, methodId++);
+        Logger.getInstance(SelectSnippetsTask.class).warn(signature + " => " + methodToId.get(signature));
+        return methodToId.get(signature);
+    }
+
+    @Override
+    public List<MyTask> getDependencyTasks() {
+        List<MyTask> tasks = new ArrayList<>();
+        tasks.add(new GatherExternalDependenciesTask(project));
+        tasks.add(new DownloadExternalDocumentationScoreTask(project));
+        return tasks;
     }
 
     private List<String> allSnippetsSignatures;
-    private Set<PsiClass> alreadyAddedClasses;
+    private Set<String> alreadyAddedClasses;
     private List<String> queries;
     private File outputFile;
     private int maxDepth;
@@ -60,7 +77,11 @@ public class SelectSnippetsTask extends MyTask {
         String content = FileUtils.readFileToString(snippetsFile, "UTF-8");
 
         String[] snippets = content.split("\n");
-        this.allSnippetsSignatures = Arrays.asList(snippets);
+        this.allSnippetsSignatures = new ArrayList<>();
+        for (String snippet : snippets) {
+            String[] parts = snippet.split(";");
+            this.allSnippetsSignatures.add(parts[0]);
+        }
 
         this.outputFile = outputFile;
 
@@ -87,29 +108,88 @@ public class SelectSnippetsTask extends MyTask {
             Queue<TempPsiClass> toAnalyze = new LinkedList<>();
             Visitor visitor = new Visitor(toAnalyze);
 
+            double done = 0.0;
+            double total = allClasses.size();
+            int numberOfFoundSnippets = 0;
+            Map<String, String> mostSimilar = new HashMap<>();
+            Set<String> missingMethods = new HashSet<>(allSnippetsSignatures);
+
+            for (String signature : allSnippetsSignatures) {
+                mostSimilar.put(signature, "");
+            }
+
+            Logger.getInstance(SelectSnippetsTask.class).info("Analyzing " + allClasses.size() + "...");
+            Logger.getInstance(SelectSnippetsTask.class).info("For example: " + allClasses.stream().findFirst() );
             for (PsiClass psiClass : allClasses) {
+                progressIndicator.setFraction(done++ / total);
+                System.out.println(done / total);
+//                String qualified = psiClass.getQualifiedName();
+//                if (qualified == null)
+//                    continue;
+//
+//                boolean ahead = false;
+//                for (String signature : allSnippetsSignatures)
+//                    if (signature.startsWith(qualified))
+//                        ahead = true;
+//
+//                if (!ahead)
+//                    continue;
                 for (PsiMethod method : psiClass.getMethods()) {
-                    String methodSignature = PsiUtils.getSignature(method);
+                    String methodSignature;
+                    try {
+                        methodSignature = PsiUtils.getSignature(method);
+                    } catch (RuntimeException e) {
+                        Logger.getInstance(SelectSnippetsTask.class).warn(e);
+                        continue;
+                    }
+//                    System.out.println(methodSignature);
+                    for (Map.Entry<String, String> entry : mostSimilar.entrySet()) {
+                        int similarityOld = similarity(entry.getKey(), entry.getValue());
+                        int similarityNew = similarity(entry.getKey(), methodSignature);
+
+                        if (similarityNew > similarityOld)
+                            mostSimilar.put(entry.getKey(), methodSignature);
+                    }
                     if (allSnippetsSignatures.contains(methodSignature)) {
+                        missingMethods.remove(methodSignature);
                         Snippet snippet = new Snippet();
                         snippet.id = getMethodUniqueId(method);
-                        snippet.qualifiedName = null;
+                        snippet.qualifiedName = methodSignature;
                         snippet.content = method.getText();
-                        snippet.understandability = understandabilityCalculator.computeUnderstandability(method);
+                        snippet.understandability = 0.0;//understandabilityCalculator.computeUnderstandability(method);
                         snippet.systemName = this.project.getName();
+                        snippet.addRelated(psiClass);
+                        toAnalyze.add(new TempPsiClass(psiClass, 1));
 
                         visitor.setSnippet(snippet);
                         method.accept(visitor);
 
                         addSnippetInDB(snippet);
+                        numberOfFoundSnippets++;
                     }
                 }
             }
 
+            if (numberOfFoundSnippets != allSnippetsSignatures.size()) {
+                String message = "";
+                for (String missingMethod : missingMethods) {
+                    message += "; " + missingMethod + "; most similar: \"" + mostSimilar.get(missingMethod) + "\"";
+                }
+
+                throw new RuntimeException("Unable to find some snippets: " + message);
+            }
+
             while (!toAnalyze.isEmpty()) {
+                progressIndicator.setFraction(1 - (toAnalyze.size() / (toAnalyze.size() +1)));
+                System.out.println(toAnalyze.size());
                 TempPsiClass element = toAnalyze.poll();
-                if (alreadyAddedClasses.contains(element.psiClass))
+                if (alreadyAddedClasses.contains(element.psiClass.getQualifiedName()))
                     continue;
+
+                if (element.psiClass.getText().length() < 30) {
+                    alreadyAddedClasses.add(element.psiClass.getQualifiedName());
+                    continue;
+                }
 
                 Snippet snippet = new Snippet();
                 snippet.id = getClassUniqueId(element.psiClass);
@@ -125,11 +205,20 @@ public class SelectSnippetsTask extends MyTask {
 
                 addClassInDB(snippet);
 
-                this.alreadyAddedClasses.add(element.psiClass);
+                this.alreadyAddedClasses.add(element.psiClass.getQualifiedName());
             }
 
             try {
-                FileUtils.write(this.outputFile, StringUtils.join(this.queries, ";\n"), "UTF-8");
+                FileWriter writer = new FileWriter(this.outputFile);
+                PrintWriter printer = new PrintWriter(writer);
+                for (String query : this.queries)
+                    printer.println(query + ";");
+                printer.close();
+                writer.close();
+
+                //Stores the values
+                UnderstandabilityPreferences.setSnippetId(methodId);
+                UnderstandabilityPreferences.setClassId(classId);
             } catch (IOException e) {
                 System.out.println("An error occurred while saving the SQL file");
             }
@@ -140,13 +229,28 @@ public class SelectSnippetsTask extends MyTask {
         }
     }
 
+    private int similarity(String a, String b) {
+        int minLength = a.length() < b.length() ? a.length() : b.length();
+
+        int similarity = 0;
+        for (int i = 0; i < minLength; i++) {
+            if (a.charAt(i) == b.charAt(i))
+                similarity++;
+            else
+                return similarity;
+        }
+
+        return similarity;
+    }
+
     private void addSnippetInDB(Snippet element) {
-        String query = "INSERT INTO `snippet` (`id`, `text_to_show`, `system_name`, `understandability`, `related_resources`) VALUES (" +
+        String query = "INSERT INTO `snippet` (`id`, `title`, `text_to_show`, `system_name`, `understandability`, `related_resources`) VALUES (" +
                 element.id + ", " +
-                "'" + element.content.replaceAll("'", "\\\\'").replaceAll("\n", "\\\\n") + "', " +
-                "'" + element.systemName.replaceAll("'", "\\\\'") + "', " +
+                "'" + escape(element.qualifiedName) + "', " +
+                "'" + escape(element.content) + "', " +
+                "'" + escape(element.systemName) + "', " +
                 "" + element.understandability + ", " +
-                "'" + element.relatedToString().replaceAll("'", "\\\\'") + "')";
+                "'" + escape(element.relatedToString()) + "')";
 
         this.queries.add(query);
     }
@@ -154,22 +258,32 @@ public class SelectSnippetsTask extends MyTask {
     private void addClassInDB(Snippet element) {
         String query = "INSERT INTO `classes` (`id`, `text_to_show`, `system_name`, `related_resources`) VALUES (" +
                 element.id + ", " +
-                "'" + element.content.replaceAll("'", "\\\\'").replaceAll("\n", "\\\\n") + "', " +
-                "'" + element.systemName.replaceAll("'", "\\\\'") + "', " +
-                "'" + element.relatedToString().replaceAll("'", "\\\\'") + "')";
+                "'" + escape(element.content) + "', " +
+                "'" + escape(element.systemName) + "', " +
+                "'" + escape(element.relatedToString()) + "')";
 
         this.queries.add(query);
     }
 
+    private String escape(String a) {
+        return a.replace("\\", "\\\\").replace("'", "''").replace("\n", "\\n");
+    }
+
     class Visitor extends PsiRecursiveElementVisitor {
         private Queue<TempPsiClass> toAnalyze;
+        private Set<String> analyzedClasses;
         private Snippet snippet;
 
         public Visitor(Queue<TempPsiClass> toAnalyze) {
             this.toAnalyze = toAnalyze;
+            this.analyzedClasses = new HashSet<>();
         }
 
-        public void setSnippet(Snippet snippet) {
+        public void setAnalyzedClasses(Set<String> analyzedClasses) {
+            this.analyzedClasses = analyzedClasses;
+        }
+
+        void setSnippet(Snippet snippet) {
             this.snippet = snippet;
         }
 
@@ -186,7 +300,9 @@ public class SelectSnippetsTask extends MyTask {
                         continue;
 
                     this.snippet.addRelated((PsiClass)referredElement);
-                    toAnalyze.add(new TempPsiClass((PsiClass)referredElement, this.snippet.distance + 1));
+                    TempPsiClass toAdd = new TempPsiClass((PsiClass)referredElement, this.snippet.distance + 1);
+//                    if (!toAnalyze.contains(toAdd))
+                    toAnalyze.add(toAdd);
                 }
 
                 if (referredElement instanceof PsiMethod) {
@@ -195,7 +311,10 @@ public class SelectSnippetsTask extends MyTask {
 
                     this.snippet.addRelated(((PsiMethod)referredElement).getContainingClass());
                     PsiClass containing =((PsiMethod)referredElement).getContainingClass();
-                    toAnalyze.add(new TempPsiClass(containing, this.snippet.distance + 1));
+
+                    TempPsiClass toAdd = new TempPsiClass(containing, this.snippet.distance + 1);
+//                    if (!toAnalyze.contains(toAdd))
+                    toAnalyze.add(toAdd);
                 }
             }
 
@@ -242,6 +361,19 @@ public class SelectSnippetsTask extends MyTask {
         public TempPsiClass(PsiClass psiClass, int distance) {
             this.psiClass = psiClass;
             this.distance = distance;
+        }
+
+        @Override
+        public boolean equals(Object o) {
+            if (!(o instanceof TempPsiClass))
+                return false;
+
+            TempPsiClass tempPsiClass = (TempPsiClass)o;
+
+            if (tempPsiClass.psiClass.getQualifiedName() == null || psiClass.getQualifiedName() == null)
+                return false;
+
+            return tempPsiClass.psiClass.getQualifiedName().equals(psiClass.getQualifiedName()) && distance != tempPsiClass.distance;
         }
     }
 }

@@ -21,6 +21,8 @@ public class SettingsDialog implements Configurable {
     private JButton expansionButton;
     private JButton readabilityClassifierButton;
     private JButton dictionaryButton;
+    private JTextField snippetStartingId;
+    private JTextField classStartingId;
 
     private String popularitiesFile;
     private String stackOverflowCacheFile;
@@ -138,7 +140,9 @@ public class SettingsDialog implements Configurable {
                 UnderstandabilityPreferences.isChangedStopWordFile(this.stopWordFile) ||
                 UnderstandabilityPreferences.isChangedExpansionFile(this.expansionFile) ||
                 UnderstandabilityPreferences.isChangedReadabilityClassifierFile(this.readabilityClassifierFile) ||
-                UnderstandabilityPreferences.isChangedDictionaryFile(this.dictionaryFile);
+                UnderstandabilityPreferences.isChangedDictionaryFile(this.dictionaryFile) ||
+                UnderstandabilityPreferences.isChangedSnippetId(this.snippetStartingId.getText()) ||
+                UnderstandabilityPreferences.isChangedClassId(this.classStartingId.getText());
     }
 
     @Override
@@ -150,6 +154,9 @@ public class SettingsDialog implements Configurable {
         UnderstandabilityPreferences.setExpansionFile(this.expansionFile);
         UnderstandabilityPreferences.setReadabilityClassifierFile(this.readabilityClassifierFile);
         UnderstandabilityPreferences.setDictionaryFile(this.dictionaryFile);
+
+        UnderstandabilityPreferences.setSnippetId(Integer.parseInt(this.snippetStartingId.getText()));
+        UnderstandabilityPreferences.setClassId(Integer.parseInt(this.classStartingId.getText()));
     }
 
     @Override
@@ -158,9 +165,12 @@ public class SettingsDialog implements Configurable {
         this.stackOverflowCacheFile = UnderstandabilityPreferences.getStackOverflowCacheFile();
         this.expansionFile = UnderstandabilityPreferences.getExpansionFile();
         this.stopWordFile = UnderstandabilityPreferences.getStopWordFile();
-        this.stackoverflowApiKeyField.setText(UnderstandabilityPreferences.getStackOverflowApiKey());
         this.readabilityClassifierFile = UnderstandabilityPreferences.getReadabilityClassifierFile();
         this.dictionaryFile = UnderstandabilityPreferences.getDictionaryFile();
+
+        this.stackoverflowApiKeyField.setText(UnderstandabilityPreferences.getStackOverflowApiKey());
+        this.snippetStartingId.setText(String.valueOf(UnderstandabilityPreferences.getSnippetId()));
+        this.classStartingId.setText(String.valueOf(UnderstandabilityPreferences.getClassId()));
         updateButtons();
     }
 

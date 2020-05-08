@@ -25,7 +25,6 @@ public class NameQualityCalculator extends MultiElementMetricCalculator {
     public static final String NAME = "NameQuality";
     private static Logger LOG = Logger.getInstance(NameQualityCalculator.class);
 
-    private Map<String, String> expansions;
     private Set<String> stopWords;
 
     public NameQualityCalculator(Mode mode) {
@@ -47,7 +46,7 @@ public class NameQualityCalculator extends MultiElementMetricCalculator {
 
         for (PsiParameter parameter : pMethod.getParameterList().getParameters()) {
             if (parameter.getName() != null) {
-                sumQuality += computeQuality(parameter.getName(), methodBody);
+                sumQuality += computeParamaterQuality(parameter.getName(), methodBody);
                 totQuality++;
             }
         }
@@ -85,6 +84,13 @@ public class NameQualityCalculator extends MultiElementMetricCalculator {
         }
 
         return (expansionEasiness + overlapMeasure) / 2;
+    }
+
+    private double computeParamaterQuality(String identifier, String methodBody) {
+        List<String> splitted = IdentifiersHandler.getInstance().splitIdentifier(identifier);
+        List<String> expanded = IdentifiersHandler.getInstance().splitAndExpandIdentifier(identifier);
+
+        return computeExpansionEasiness(splitted, expanded);
     }
 
     private double computeExpansionEasiness(List<String> splitted, List<String> expanded) {

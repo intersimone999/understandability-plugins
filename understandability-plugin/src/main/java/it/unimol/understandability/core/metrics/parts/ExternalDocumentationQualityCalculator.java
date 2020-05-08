@@ -13,7 +13,7 @@ import it.unimol.understandability.core.structure.ExternalDocumentationScoreCont
  * Created by simone on 08/12/16.
  */
 public class ExternalDocumentationQualityCalculator extends MultiElementMetricCalculator {
-    public static final String NAME = "ExternalDocumentationQuality";
+    public static final String NAME = "ExternalDocumentation";
 
     private ExternalDocumentationScoreContainer documentationContainer;
 
@@ -32,12 +32,13 @@ public class ExternalDocumentationQualityCalculator extends MultiElementMetricCa
             throw new IgnoreValueException();
         }
 
-        Double normScore = this.documentationContainer.getNormalizedScoreFor(pClass);
-        if (normScore.isNaN()) {
+//        Double normScore = this.documentationContainer.getNormalizedScoreFor(pClass);
+        Double score = this.documentationContainer.getScore(pClass);
+        if (score.isNaN()) {
             throw new IgnoreValueException();
         }
 
-        return normScore;
+        return score;
     }
 
     @Override

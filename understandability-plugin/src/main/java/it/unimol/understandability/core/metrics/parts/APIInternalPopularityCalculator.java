@@ -4,7 +4,6 @@ import com.intellij.openapi.diagnostic.Logger;
 import com.intellij.openapi.project.Project;
 import com.intellij.psi.PsiClass;
 import com.intellij.psi.PsiMethod;
-import groovy.mock.interceptor.Ignore;
 import it.unimol.understandability.core.metrics.IgnoreValueException;
 import it.unimol.understandability.core.metrics.MultiElementMetricCalculator;
 import it.unimol.understandability.core.structures.ReferenceGraphBuilder;
@@ -14,7 +13,7 @@ import it.unimol.understandability.core.structures.ReferenceGraph;
  * Created by simone on 08/12/16.
  */
 public class APIInternalPopularityCalculator extends MultiElementMetricCalculator {
-    public static final String NAME = "APIInternalPopularity";
+    public static final String NAME = "InternalPopularity";
     private static Logger LOG = Logger.getInstance(APIInternalPopularityCalculator.class);
 
     private ReferenceGraph referenceGraph;

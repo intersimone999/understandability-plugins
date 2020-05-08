@@ -131,6 +131,14 @@ public class ExternalDocumentationScoreContainer {
         return this.normalizedDocumentationScore.get(psiClass.getQualifiedName());
     }
 
+    public double getScore(PsiClass psiClass) {
+        if (!this.documentationScore.containsKey(psiClass.getQualifiedName())) {
+            return Double.NaN;
+        }
+
+        return this.documentationScore.get(psiClass.getQualifiedName());
+    }
+
     private double getScore(String name) {
         if (this.externalScoreCache.containsKey(name))
             return this.externalScoreCache.get(name);
