@@ -2,3 +2,5 @@
 understandability-plugin/popularity_BACKUP.csv
 *.zip
 .idea
+out
+target
