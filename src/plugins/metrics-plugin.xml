@@ -1,0 +1,36 @@
+<idea-plugin>
+  <id>it.unimol.understandability</id>
+  <name>Understandability Metrics</name>
+  <version>1.0</version>
+  <vendor email="simone.scalabrino@unimol.it" url="http://dibt.unimol.it/sscalabrino">University of Molise</vendor>
+
+    <description><![CDATA[
+      This plugin just computes the understandability of a method.
+    ]]></description>
+
+  <!-- please see http://www.jetbrains.org/intellij/sdk/docs/basics/getting_started/build_number_ranges.html for description -->
+  <idea-version since-build="133.0"/>
+
+  <!-- please see http://www.jetbrains.org/intellij/sdk/docs/basics/getting_started/plugin_compatibility.html
+       on how to target different products -->
+  <!-- uncomment to enable plugin in all products
+  <depends>com.intellij.modules.lang</depends>
+  -->
+
+  <extensions defaultExtensionNs="com.intellij">
+    <applicationConfigurable instance="it.unimol.understandability.ui.panels.config.SettingsDialog" />
+  </extensions>
+
+  <actions>
+    <action id="Understandability.Calculate" class="it.unimol.understandability.ui.CalculateUnderstandabilityAction"
+            text="Calculate Understandability" description="Writes a CSV file with the understandability of each method of each class of the selected project">
+      <add-to-group group-id="ProjectViewPopupMenu" anchor="first" />
+    </action>
+
+<!--    <action id="Understandability.SelectSnippets" class="it.unimol.understandability.ui.SelectSnippetsAction"-->
+<!--            text="Export SQL With Snippets" description="Export an SQL file which saves the snippets and the related classes in the database">-->
+<!--      <add-to-group group-id="ProjectViewPopupMenu" anchor="first" />-->
+<!--    </action>-->
+  </actions>
+
+</idea-plugin>

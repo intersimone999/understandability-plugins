@@ -1,3 +1,0 @@
-# Popularity files
-popularity.csv contains the number of occurrences of many classes in GitHub projects. Star imports are distributed proportionally among classes. E.g., java.util.* is distributed among java.util.List, java.util.Map, ...
-pure_popularity.csv contains just the number of occurrences, star imports are ignored.
