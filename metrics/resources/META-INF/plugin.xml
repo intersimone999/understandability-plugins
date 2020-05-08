@@ -5,7 +5,7 @@
   <vendor email="simone.scalabrino@unimol.it" url="http://dibt.unimol.it/sscalabrino">University of Molise</vendor>
 
     <description><![CDATA[
-      This plugin just computes the understandability of a method.
+      This plugin computes metrics possibly (but not!) related to the understandability of a method.
     ]]></description>
 
   <!-- please see http://www.jetbrains.org/intellij/sdk/docs/basics/getting_started/build_number_ranges.html for description -->

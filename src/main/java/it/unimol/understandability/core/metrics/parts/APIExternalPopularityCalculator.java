@@ -74,8 +74,8 @@ public class APIExternalPopularityCalculator extends MultiElementMetricCalculato
 
     @Override
     public double compute(PsiMethod method) {
-        Double result = super.compute(method);
-        if (result.isNaN())
+        double result = super.compute(method);
+        if (Double.isNaN(result))
             return 0.0;
         else
             return result;
